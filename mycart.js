@@ -7,8 +7,7 @@ function cartProductList(){
         return response.json();
     }).then(function(cartData){        
         hideLoader()
-        cartProductListItem(cartData);
-        myCart();
+        cartProductListItem(cartData);        
     })
 }
 
@@ -48,7 +47,7 @@ function cartProductListItem(cartData){
     cartValue = cartData.length;
     myCart(cartValue)
 }
-
+myCart()
 
 function getQuantity(proPrice, id){
     qvalue = document.getElementById("product-" + id).value;    
