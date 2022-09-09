@@ -20,7 +20,7 @@ function showPag(pageData){
     totalData = pageData;    
     let noOfpage = Math.ceil(totalData / 10);        
     
-    let pagination =`<nav><ul class='pagination'><li class='page-item'><a href='javascript:void(0)' id="prevPage" onclick='prevPage(${noOfpage})'>prev</a></li>`;
+    let pagination =`<nav><ul class='pagination'><li class='page-item prev-page'><a href='javascript:void(0)' id="prevPage" onclick='prevPage(${noOfpage})'>prev</a></li>`;
     
     for(i=1; i<=noOfpage; i++){                        
         let active = "";
@@ -29,7 +29,7 @@ function showPag(pageData){
         }
         pagination +=`<li class='page-item'><a class='page-link ${active}' id="page-${[i]}" onclick='getPaginationData(${[i]}, ${noOfpage})' href="javascript:void(0)">${[i]}</a></li>`;                
     }    
-    pagination += `<li class='page-item px-2'><a href='javascript:void(0)' id="nextPage" onclick='nextPage(${noOfpage})'>next</a></li></ul></nav>`;     
+    pagination += `<li class='page-item px-2 next-page'><a href='javascript:void(0)' id="nextPage" onclick='nextPage(${noOfpage})'>next</a></li></ul></nav>`;     
     document.getElementById("pagination").innerHTML = pagination;        
     document.getElementById("prevPage").classList.add("dis");
 }
