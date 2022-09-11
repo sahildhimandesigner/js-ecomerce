@@ -21,12 +21,12 @@ function cartProductListItem(cartData){
     cartData.forEach((productItem) => {        
         loadTableData += `
             <tr>
-            <td><img src="${productItem.proImg ? productItem.proImg : noImage}" style="width:100px;" class="card-img-top" alt="..."></td>
-            <td>${productItem.proName}</td>
-            <td>${productItem.proDesc}</td>
-            <td>${productItem.proPrice}</td>
-            <td>${productItem.proCat}</td>
-            <td><input type="number" class="col-md-2" id="product-${productItem.id}" onkeyup="getQuantity(${productItem.proPrice}, ${productItem.id})" value="1" /></td>                
+            <td valign="middle"><img src="${productItem.proImg ? productItem.proImg : noImage}" style="width:100px;" class="card-img-top" alt="..."></td>
+            <td valign="middle">${productItem.proName}</td>
+            <td valign="middle">${productItem.proDesc}</td>
+            <td valign="middle">${productItem.proPrice}</td>
+            <td valign="middle">${productItem.proCat}</td>
+            <td valign="middle"><input type="number" class="col-md-2" id="product-${productItem.id}" onkeyup="getQuantity(${productItem.proPrice}, ${productItem.id})" value="1" /></td>                
             <td valign="middle">
                 <button class="border-0" onclick="deletProduct(${productItem.id})">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -35,6 +35,7 @@ function cartProductListItem(cartData){
                 </button>
             </td>
             </tr>
+            <input type="hidden" class="pro-cost" value="${productItem.proPrice}" id="cost-${productItem.id}" />
         `
         
         //parseInt use to conver string to number
@@ -49,12 +50,26 @@ function cartProductListItem(cartData){
 }
 myCart()
 
-function getQuantity(proPrice, id){
+function getQuantity(proPrice, id){    
+    
+    let newSub = 0;    
+
     qvalue = document.getElementById("product-" + id).value;    
+
     let quantity =  parseInt(qvalue)
-    let totalPrice = (proPrice) * (quantity - 1);
-    let newSub = totalPrice + subTotal;
+
+    let totalcost = (proPrice) * (quantity - 1);
+
+    document.getElementById("cost-" +id).value = totalcost;
+
+    let getId = document.querySelectorAll('.pro-cost');
+    
+    for(k=0; k < getId.length; k++){        
+        newSub += parseInt(getId[k].value);
+    }    
+    
     document.getElementById("totalPrice").innerHTML = newSub;
+
 }
 
 function myCart(cartValue){        
