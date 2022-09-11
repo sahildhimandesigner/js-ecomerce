@@ -51,14 +51,22 @@ function cartProductListItem(cartData){
 myCart()
 
 function getQuantity(proPrice, id){    
-    
+
     let newSub = 0;    
+    let totalcost = 0;
 
     qvalue = document.getElementById("product-" + id).value;    
 
     let quantity =  parseInt(qvalue)
-
-    let totalcost = (proPrice) * (quantity - 1);
+    if(quantity > 1){
+        totalcost = (proPrice) * (quantity - 1);
+        console.log(totalcost, 'totalcost 1')
+    }
+    if(quantity > 0){
+        totalcost = proPrice * quantity;
+        console.log(totalcost, 'totalcost 0')
+    }
+    
 
     document.getElementById("cost-" +id).value = totalcost;
 
