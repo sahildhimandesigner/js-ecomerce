@@ -1,3 +1,4 @@
+const noImage = 'https://www.phswarnerhoward.co.uk/assets/images/no_img_avaliable.jpg';
 
 cartProductList();
 
@@ -67,11 +68,13 @@ function getQuantity(proPrice, id){
         console.log(totalcost, 'totalcost 0')
     }
     
-
+    //updated the hidden value with number item
     document.getElementById("cost-" +id).value = totalcost;
 
+    //get the all product item for iterate
     let getId = document.querySelectorAll('.pro-cost');
     
+    //adding all the product value into newsub var
     for(k=0; k < getId.length; k++){        
         newSub += parseInt(getId[k].value);
     }    
@@ -85,14 +88,15 @@ function myCart(cartValue){
 }
 
 
-function deletProduct(getDetails){    
-    showLoader()
+function deletProduct(getDetails){        
+    showLoader();
+    console.log(getDetails, 'getDetails')
     fetch('https://api-generator.retool.com/Bl2mIo/data/'+ getDetails, {
             method: 'DELETE',
-    }).then(function(data){        
-        hideLoader()
-        cartProductList()        
-        myCart()
+    }).then(function(){                
+        hideLoader();
+        cartProductList();    
+        myCart();
         }       
     )
 }

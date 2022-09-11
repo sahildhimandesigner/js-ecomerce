@@ -41,39 +41,18 @@
     </div>
     </nav>
 
-    <div class="m-auto col-md-6 mt-5">        
-        <div class="p-3 mb-2 text-sucess" id="sucess_message"></div>
+    <div class="m-auto col-md-3 mt-5">                
         <div class="col-md-12 mb-4">
-            <label class="form-label">Product Name</label>
-            <input type="text" class="form-control" id="productName">
+            <label class="form-label">User Name</label>
+            <input type="text" class="form-control" id="user_name">
             <span class="text-danger name-error"></span>
         </div>
         <div class="col-md-12 mb-4">
-            <label class="form-label">Product Price</label>
-            <input type="number" class="form-control" id="productPrice">
+            <label class="form-label">User Password</label>
+            <input type="password" class="form-control" id="user_password">
             <span class="text-danger product-error"></span>
         </div>
-        <div class="col-12 mb-4">
-            <label class="form-label">Product Description</label>
-            <input type="text" class="form-control" id="description" placeholder="Description">
-            
-        </div>
-        <div class="col-12 mb-4">
-            <label class="form-label">Select Category</label>
-            <select class="form-select" id="category">
-            <option selected>Open this select menu</option>
-                <option value="Shoes">Shoes</option>
-                <option value="Clothes">Clothes</option>
-                <option value="cap">Cap</option>
-            </select>
-            
-        </div>
-        <div class="col-12 mb-4">
-            <label class="form-label">Product Image</label>
-            <input type="text" id="product_image" class="form-control" />
-            
-        </div>
-        <button onclick="setProductData()" class="btn btn-primary">Add Product</button>        
+        <button onclick="userLogin()" class="btn btn-primary">Submit</button>        
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
