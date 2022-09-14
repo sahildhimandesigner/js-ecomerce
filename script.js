@@ -70,7 +70,20 @@ function setProductData(){
     //     console.log(ecartStore, 'ecartst')
     // }   
 }
+privateRoute();
+function privateRoute(){
+    checkValue = JSON.parse(localStorage.getItem('usrDet'));    
+    userDetails = checkValue.userDetails;    
+    if(userDetails){
+        let allNav = document.querySelectorAll('.private-link');
+        allNav.style.display = 'block';
+        console.log(allNav, 'allNav')
+    }        
+}
 
+function logoutUser(){
+    localStorage.clear('usrDet');
+}
 
 function showLoader(){
     document.getElementById("cssloader").style.display = "block";

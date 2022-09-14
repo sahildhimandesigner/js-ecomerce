@@ -68,3 +68,6 @@ li a.dis {
   background-color: var(--bs-pagination-bg);
   border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);  
 }
+.private-link {
+  display: none;
+}

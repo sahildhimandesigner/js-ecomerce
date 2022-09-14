@@ -51,8 +51,7 @@ function cartProductListItem(cartData){
 }
 myCart()
 
-function getQuantity(proPrice, id){    
-
+function getQuantity(proPrice, id){
     let newSub = 0;    
     let totalcost = 0;
 
