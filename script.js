@@ -1,11 +1,10 @@
 const url = 'https://api-generator.retool.com/BsUw6I';
 const cartUrl = 'https://api-generator.retool.com/Bl2mIo/data'
 
-
 const addProBtn = document.getElementById('add_product');
 
 let cartValue = 0;
-
+let userDetails = false;
 
 function setProductData(){
     ecartStore = []
