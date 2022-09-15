@@ -77,12 +77,14 @@ function privateRoute(){
     if(userDetails){
         let allNav = document.querySelectorAll('.private-link');
         allNav.style.display = 'block';
-        console.log(allNav, 'allNav')
+        let publicNav = document.querySelectorAll('.publick-item');
+        publicNav.style.display = 'none';
     }        
 }
 
 function logoutUser(){
     localStorage.clear('usrDet');
+    window.location.replace("file:///var/www/html/js/ecomerce/login.html");
 }
 
 function showLoader(){
