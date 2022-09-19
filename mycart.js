@@ -13,7 +13,7 @@ function cartProductList(){
 }
 
 function cartProductListItem(cartData){
-    let subTotal = 0;
+    let subTotal = 0;    
     let loadTableData = "";
 
     cartData = cartData.filter(element => element.proName);   
