@@ -12,9 +12,8 @@ function cartProductList(){
     })
 }
 
-let subTotal = 0;
-
-function cartProductListItem(cartData){      
+function cartProductListItem(cartData){
+    let subTotal = 0;
     let loadTableData = "";
 
     cartData = cartData.filter(element => element.proName);   
@@ -27,7 +26,9 @@ function cartProductListItem(cartData){
             <td valign="middle">${productItem.proDesc}</td>
             <td valign="middle">${productItem.proPrice}</td>
             <td valign="middle">${productItem.proCat}</td>
-            <td valign="middle"><input type="number" class="col-md-2" id="product-${productItem.id}" onkeyup="getQuantity(${productItem.proPrice}, ${productItem.id})" value="1" /></td>                
+            <td valign="middle">
+                <input type="number" class="col-md-2" id="product-${productItem.id}" onkeyup="getQuantity(${productItem.proPrice}, ${productItem.id})" value="1" />
+            </td>                
             <td valign="middle">
                 <button class="border-0" onclick="deletProduct(${productItem.id})">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -51,51 +52,67 @@ function cartProductListItem(cartData){
 }
 myCart()
 
-function getQuantity(proPrice, id){
-    let newSub = 0;    
-    let totalcost = 0;
-
-    qvalue = document.getElementById("product-" + id).value;    
-
-    let quantity =  parseInt(qvalue)
-    if(quantity > 1){
-        totalcost = (proPrice) * (quantity - 1);
-        console.log(totalcost, 'totalcost 1')
-    }
-    if(quantity > 0){
-        totalcost = proPrice * quantity;
-        console.log(totalcost, 'totalcost 0')
-    }
-    
-    //updated the hidden value with number item
-    document.getElementById("cost-" +id).value = totalcost;
-
-    //get the all product item for iterate
-    let getId = document.querySelectorAll('.pro-cost');
-    
-    //adding all the product value into newsub var
-    for(k=0; k < getId.length; k++){        
-        newSub += parseInt(getId[k].value);
-    }    
-    
-    document.getElementById("totalPrice").innerHTML = newSub;
-
+function getQuantity(proPrice, id){    
+    cal(proPrice, id);                
+    calPrice();
 }
 
 function myCart(cartValue){        
     document.getElementById("myCart").innerHTML = cartValue ? cartValue : "";
 }
 
+function calPrice(getDetails){
+    let newSub = 0;    
+    if(getDetails){
+        let newValue = document.getElementById("cost-" +getDetails).value;
+        
+        //get the all product item for iterate
+        let getId = document.querySelectorAll('.pro-cost');
+        
+        //adding all the product value into newsub var
+        for(k=0; k < getId.length; k++){        
+            newSub += parseInt(getId[k].value);
+        }
+
+        let dd = newSub - newValue;
+
+        document.getElementById("totalPrice").innerHTML = dd;
+    }    
+    else {
+        //get the all product item for iterate
+        let getId = document.querySelectorAll('.pro-cost');
+
+        //adding all the product value into newsub var
+        for(k=0; k < getId.length; k++){        
+            newSub += parseInt(getId[k].value);
+        }
+        document.getElementById("totalPrice").innerHTML = newSub;
+    }
+}
+
+function cal(proPrice, id){
+    let totalcost = 0;
+    qvalue = document.getElementById("product-" + id).value;    
+
+    let quantity =  parseInt(qvalue)
+    if(quantity > 1){
+        totalcost = (proPrice) * (quantity - 1);
+    }
+    if(quantity > 0){
+        totalcost = proPrice * quantity;
+    }
+    document.getElementById("cost-" +id).value = totalcost;
+}
 
 function deletProduct(getDetails){        
-    showLoader();
-    console.log(getDetails, 'getDetails')
+    calPrice(getDetails)
+    showLoader();    
     fetch('https://api-generator.retool.com/Bl2mIo/data/'+ getDetails, {
             method: 'DELETE',
     }).then(function(){                
-        hideLoader();
-        cartProductList();    
-        myCart();
+            hideLoader();        
+            cartProductList();
+            myCart();
         }       
     )
 }
