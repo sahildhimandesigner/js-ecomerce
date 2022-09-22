@@ -216,6 +216,7 @@ function searchItem(){
      }
     else {        
         document.getElementById("product").style.display ='flex';
+        document.getElementById("nomatch").style.display = 'none';
         getPaginationData();
     }
 
