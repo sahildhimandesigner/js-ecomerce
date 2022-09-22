@@ -198,17 +198,24 @@ function addToWhishlist(){
 
 function searchItem(){
     let proSrc = document.getElementById("product_search").value;                
-    // let carIteam = document.getElementsByClassName('card');
+    // let carIteam = document.getElementsByClassName('card');    
     if(proSrc){
         fetch('https://api-generator.retool.com/BsUw6I/data?product_name=' + proSrc, {
         method: 'GET',
         }).then(function(response){
-            return response.json();
-        }).then(function(searchData){
-            productList(searchData);
+            return response.json();            
+        }).then(function(searchData){            
+            if(searchData.length > 0){
+                productList(searchData);
+            }
+            else {                
+                document.getElementById("product").style.display ='none';
+                document.getElementById("nomatch").innerHTML = "No match found";
+            }
         })   
      }
-    else {
+    else {        
+        document.getElementById("product").style.display ='flex';
         getPaginationData();
     }
 
