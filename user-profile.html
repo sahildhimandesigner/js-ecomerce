@@ -15,8 +15,8 @@
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav private-link">
-                <li class="nav-item">
+            <ul class="navbar-nav">
+                <li class="nav-item private-link">
                     <a class="nav-link active" aria-current="page" href="index.html">Add product</a>
                 </li>
                 <li class="nav-item">
@@ -36,36 +36,49 @@
                 </li>
             </ul>
         </div>
+
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
             <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
         </svg>
         <span id="myCart" class="mx-2"></span>
-        <button onclick="logoutUser()" class="btn btn-primary private-link">Logout</button>
     </div>
     </nav>
-    <div class="container m-auto d-flex mt-5 flex-column">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Product Img</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Price</th>                                        
-                    <th scope="col">Description</th>
-                    <th scope="col">Qty</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="cartListProduct">                
-            </tbody>            
-        </table>                    
-        <h1 id="noMatch"></h1>
-        <h4 class="d-flex w-100 justify-content-end">Subtotal: <span id="totalPrice"></span></h4>
-        <div class="loader" style="display: none;" id="cssloader"></div>
+
+    <div class="m-auto col-md-6 mt-5">        
+        <div class="p-3 mb-2 text-sucess" id="sucess_message"></div>
+        <div class="col-md-12 mb-4">
+            <label class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="productName">
+            <span class="text-danger name-error"></span>
+        </div>
+        <div class="col-md-12 mb-4">
+            <label class="form-label">Product Price</label>
+            <input type="number" class="form-control" id="productPrice">
+            <span class="text-danger product-error"></span>
+        </div>
+        <div class="col-12 mb-4">
+            <label class="form-label">Product Description</label>
+            <input type="text" class="form-control" id="description" placeholder="Description">
+            
+        </div>
+        <div class="col-12 mb-4">
+            <label class="form-label">Select Category</label>
+            <select class="form-select" id="category">
+            <option selected>Open this select menu</option>
+                <option value="Shoes">Shoes</option>
+                <option value="Clothes">Clothes</option>
+                <option value="cap">Cap</option>
+            </select>
+            
+        </div>
+        <div class="col-12 mb-4">
+            <label class="form-label">Product Image</label>
+            <input type="text" id="product_image" class="form-control" />
+            
+        </div>
+        <button onclick="setProductData()" class="btn btn-primary">Add Product</button>        
     </div>
-    <h2 class="text-center" id="noProduct"></h2>    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
-    <script src="mycart.js"></script>
   </body>
 </html>

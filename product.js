@@ -38,7 +38,7 @@ function showPag(pageData){
 
 function getPaginationData(pageId, noOfpage){    
     let pageNo = document.getElementById("page-" + pageId);
-    let pageLink = document.getElementsByClassName("page-link");    
+    let pageLink = document.getElementsByClassName("page-link");
         
     for(i=1; i <= pageLink.length; i++){        
         document.getElementById("page-" + [i]).classList.remove("active");
@@ -48,7 +48,7 @@ function getPaginationData(pageId, noOfpage){
     return response.json();
     }).then(function(data) {
        productList(data);       
-       document.getElementById("currentPage").value = pageId;
+       document.getElementById("currentPage").value = pageId;       
        setlink(pageId, noOfpage)
     }).catch(function(error) {
         console.log(error, "Get Product list error");
@@ -57,7 +57,7 @@ function getPaginationData(pageId, noOfpage){
     pageNo.classList.add("active"); 
 }
 
-function setlink(id, noOfpage){    
+function setlink(id, noOfpage){ 
     if(id == 1){        
         document.getElementById("prevPage").classList.add("dis");
     }
@@ -72,13 +72,14 @@ function setlink(id, noOfpage){
     }    
 }
 
-function nextPage(totalPage){    
+function nextPage(totalPage){        
     let getCurrentValue = document.getElementById("currentPage").value;    
-    if((getCurrentValue < totalPage) && (getCurrentValue >= 1)) {        
-        getNumber = parseInt(getCurrentValue)
-        getCurrentValue = getNumber + 1; 
-        getCurrentValue = document.getElementById("currentPage").value = getCurrentValue; 
-        getPaginationData(getCurrentValue)      
+    let selectedPage = parseInt(getCurrentValue)    
+    if((selectedPage < totalPage) && (selectedPage >= 1)) {         
+        document.getElementById("prevPage").classList.remove("dis");       
+        updateCurrentPage = selectedPage + 1; 
+        selectedValue = document.getElementById("currentPage").value = updateCurrentPage;         
+        getPaginationData(selectedValue)      
     }        
 }
 
