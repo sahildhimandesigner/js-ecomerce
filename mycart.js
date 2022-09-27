@@ -43,8 +43,9 @@ function cartProductListItem(cartData){
         //parseInt use to conver string to number
         price = parseInt(productItem.proPrice)        
         subTotal = subTotal + price;       
-        document.getElementById("totalPrice").innerHTML = subTotal;
-        document.getElementById("cartListProduct").innerHTML = loadTableData;            
+        vat(subTotal);
+        document.getElementById("totalPrice").innerHTML = subTotal;                
+        document.getElementById("cartListProduct").innerHTML = loadTableData;        
     })    
 
     cartValue = cartData.length;
@@ -55,6 +56,13 @@ myCart()
 function getQuantity(proPrice, id){    
     cal(proPrice, id);                
     calPrice();
+}
+
+function vat(price){
+    let vat = (price * 20)/100;
+    let productTotalCost = vat + price;
+    document.getElementById("vat").innerHTML = vat;
+    document.getElementById("totalCost").innerHTML = productTotalCost;
 }
 
 function myCart(cartValue){        
@@ -77,6 +85,7 @@ function calPrice(getDetails){
         let dd = newSub - newValue;
 
         document.getElementById("totalPrice").innerHTML = dd;
+        vat(dd);
     }    
     else {
         //get the all product item for iterate
@@ -87,6 +96,7 @@ function calPrice(getDetails){
             newSub += parseInt(getId[k].value);
         }
         document.getElementById("totalPrice").innerHTML = newSub;
+        vat(newSub);
     }
 }
 

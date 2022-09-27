@@ -196,14 +196,12 @@ function addToWhishlist(){
     alert('sdfsdf')
 }
 
-
 function searchItem(){
     let proSrc = document.getElementById("product_search").value;                
     let findProduct = proSrc.charAt(0).toUpperCase() + proSrc.slice(1);
     // let carIteam = document.getElementsByClassName('card');    
-    console.log(findProduct, 'findProduct')
+    
     if(proSrc){
-        console.log(proSrc, 'proSrc')
         fetch('https://api-generator.retool.com/BsUw6I/data?product_name=' + findProduct, {
         method: 'GET',
         }).then(function(response){
