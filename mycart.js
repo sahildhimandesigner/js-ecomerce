@@ -6,7 +6,7 @@ function cartProductList(){
     showLoader()
     fetch(cartUrl).then(function(response) {
         return response.json();
-    }).then(function(cartData){        
+    }).then(function(cartData){     
         hideLoader()
         cartProductListItem(cartData);        
     })
@@ -15,20 +15,22 @@ function cartProductList(){
 function cartProductListItem(cartData){
     let subTotal = 0;    
     let loadTableData = "";
-
     cartData = cartData.filter(element => element.proName);   
 
-    cartData.forEach((productItem) => {        
+    cartData.forEach((productItem) => {     
+        let proudctQty = productItem.qty ? productItem.qty : '1';
+        let newProValue =  productItem.proPrice * proudctQty;
         loadTableData += `
             <tr>
+            <td valign="middle"><input type="checkbox" value="1" id="cartPro_${productItem.id}" onchange="selectItem(${productItem.id})" /></td>
             <td valign="middle"><img src="${productItem.proImg ? productItem.proImg : noImage}" style="width:100px;" class="card-img-top" alt="..."></td>
             <td valign="middle">${productItem.proName}</td>
             <td valign="middle">${productItem.proDesc}</td>
             <td valign="middle">${productItem.proPrice}</td>
             <td valign="middle">${productItem.proCat}</td>
             <td valign="middle">
-                <input type="number" class="col-md-2" id="product-${productItem.id}" onkeyup="getQuantity(${productItem.proPrice}, ${productItem.id})" value="1" />
-            </td>                
+                <input type="number" class="col-md-2" id="product-${productItem.id}" onkeyup="getQuantity(${productItem.proPrice}, ${productItem.id})" value="${proudctQty}" />
+            </td>      
             <td valign="middle">
                 <button class="border-0" onclick="deletProduct(${productItem.id})">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -37,7 +39,7 @@ function cartProductListItem(cartData){
                 </button>
             </td>
             </tr>
-            <input type="hidden" class="pro-cost" value="${productItem.proPrice}" id="cost-${productItem.id}" />
+            <input type="hidden" class="pro-cost" value="${newProValue}" id="cost-${productItem.id}" />
         `
         
         //parseInt use to conver string to number
@@ -53,7 +55,25 @@ function cartProductListItem(cartData){
 }
 myCart()
 
-function getQuantity(proPrice, id){    
+function selectItem(selectedProId){
+    console.log(selectedProId, 'selectedProId')
+    let selectedProValue = document.getElementById('cost-'+ selectedProId);
+    console.log(selectedProValue);
+}
+
+function getQuantity(proPrice, id){
+    let getProQty = document.getElementById("product-" + id).value;        
+    let currentQty = parseInt(getProQty);
+    
+    const updateProQty = {
+        method : "PATCH",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ qty: currentQty })
+    }
+
+    fetch('https://api-generator.retool.com/Bl2mIo/data/' + id, updateProQty)
+    .then(response => response.json())
+    .then(data => cartProductListItem(data))
     cal(proPrice, id);                
     calPrice();
 }
@@ -125,4 +145,35 @@ function deletProduct(getDetails){
             myCart();
         }       
     )
+}
+
+// testApi();
+// function testApi(){
+//     const options = {
+// 	method: 'POST',
+// 	headers: {
+// 		'content-type': 'application/json',
+// 		'Content-Type': 'application/json',
+// 		'X-RapidAPI-Key': '4ed8005f40mshb1acace068fd8c4p18b964jsn57e9401c255a',
+// 		'X-RapidAPI-Host': 'pincode.p.rapidapi.com'
+// 	},
+// 	body: '{"searchBy":"pincode","value":110001}'
+// };
+// let tst = '';
+// fetch('https://pincode.p.rapidapi.com/', options)
+// 	.then(response => response.json())
+// 	.then(function(data){        
+//         data.forEach((userInfo) =>{
+//             console.log(userInfo)
+//             tst += `<li><span>${userInfo.pin}</span> <span>${userInfo.office}</span> <span>${userInfo.division}</span></li>`            
+//         })
+//         document.getElementById("tst").innerHTML = tst;
+//     })
+// 	.catch(err => console.error(err));
+    
+// }
+
+
+function productCheckout(){
+    alert('sdfdsfsd')
 }
