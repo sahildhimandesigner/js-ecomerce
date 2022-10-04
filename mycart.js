@@ -15,11 +15,11 @@ function cartProductList(){
 function cartProductListItem(cartData){
     let subTotal = 0;    
     let loadTableData = "";
-    cartData = cartData.filter(element => element.proName);   
+    // cartData = cartData.filter(element => element.proName);   
 
     cartData.forEach((productItem) => {     
         let proudctQty = productItem.qty ? productItem.qty : '1';
-        let newProValue =  productItem.proPrice * proudctQty;
+        let productPrice = productItem.qty * productItem.proPrice;
         loadTableData += `
             <tr>
             <td valign="middle"><input type="checkbox" value="1" id="cartPro_${productItem.id}" onchange="selectItem(${productItem.id})" /></td>
@@ -39,11 +39,11 @@ function cartProductListItem(cartData){
                 </button>
             </td>
             </tr>
-            <input type="hidden" class="pro-cost" value="${newProValue}" id="cost-${productItem.id}" />
+            <input type="hidden" class="pro-cost" value="${productPrice}" id="cost-${productItem.id}" />
         `
         
         //parseInt use to conver string to number
-        price = parseInt(productItem.proPrice)        
+        price = productPrice        
         subTotal = subTotal + price;       
         vat(subTotal);
         document.getElementById("totalPrice").innerHTML = subTotal;                
@@ -56,9 +56,7 @@ function cartProductListItem(cartData){
 myCart()
 
 function selectItem(selectedProId){
-    console.log(selectedProId, 'selectedProId')
-    let selectedProValue = document.getElementById('cost-'+ selectedProId);
-    console.log(selectedProValue);
+    console.log(selectedProId);
 }
 
 function getQuantity(proPrice, id){
