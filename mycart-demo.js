@@ -13,16 +13,17 @@ function cartProductList(){
 }
 
 function cartProductListItem(cartData){
-    // let subTotal = 0;    
+    let subTotal = 0;    
     let loadTableData = "";
     // cartData = cartData.filter(element => element.proName);   
 
     cartData.forEach((productItem) => {     
         let proudctQty = productItem.qty ? productItem.qty : '1';
         let productPrice = productItem.qty * productItem.proPrice;
+        
         loadTableData += `
             <tr>
-            <td valign="middle"><input type="checkbox" class="cart-product" value="1" id="cartPro_${productItem.id}" onchange="selectItem(${productItem.id})" /></td>
+            <td valign="middle"><input type="checkbox" value="1" id="cartPro_${productItem.id}" onchange="selectItem(${productItem.id})" /></td>
             <td valign="middle"><img src="${productItem.proImg ? productItem.proImg : noImage}" style="width:100px;" class="card-img-top" alt="..."></td>
             <td valign="middle">${productItem.proName}</td>
             <td valign="middle">${productItem.proDesc}</td>
@@ -45,8 +46,8 @@ function cartProductListItem(cartData){
         //parseInt use to conver string to number
         // price = productPrice        
         // subTotal = subTotal + price;       
-        // vat(subTotal);
-        // document.getElementById("totalPrice").innerHTML = subTotal;                
+        
+                        
         document.getElementById("cartListProduct").innerHTML = loadTableData;        
     })    
 
@@ -55,36 +56,19 @@ function cartProductListItem(cartData){
 }
 myCart()
 
-
-function selectItem(selectedProId){
-
-    let ddd = document.getElementById("total_value").value;
-
-    let newTotal = parseInt(ddd);
-    
-    let getTotalPrice = document.getElementById("cost-"+selectedProId).value;    
-    
-    console.log(ddd, 'ddd')
-    
-    let converTotalPrice = parseInt(getTotalPrice);
-
-    console.log(converTotalPrice, 'converTotalPrice')
-    
-    newTotal += converTotalPrice;
-
-    document.getElementById("total_value").value = newTotal;
-
-
-    // for(let i=0; i<cart.length; i++){        
-    //     newTotal += converTotalPrice;
-    // }
-
-    document.getElementById("totalPrice").innerHTML = newTotal;
-    vat(newTotal)
-    console.log(newTotal, 'newTotal')
+function selectItem(selectedProId){    
+    let subTotal = 0;
+    let getPrice = 0;
+    let dddd = document.getElementById("cartPro_"+selectedProId);
+    console.log(dddd, 'dddd')
+    if(document.getElementById("cartPro_"+selectedProId).checked){
+       getPrice = document.getElementById("cost-"+selectedProId).value;
+       
+       subTotal = subTotal + getPrice;
+       vat(subTotal);
+       document.getElementById("totalPrice").innerHTML = subTotal;
+    }
 }
-
-
 
 function getQuantity(proPrice, id){
     let getProQty = document.getElementById("product-" + id).value;        
