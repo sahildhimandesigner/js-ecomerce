@@ -62,26 +62,22 @@ function selectItem(selectedProId){
 
     let newTotal = parseInt(ddd);
     
-    let getTotalPrice = document.getElementById("cost-"+selectedProId).value;    
-    
-    console.log(ddd, 'ddd')
+    let getTotalPrice = document.getElementById("cost-"+selectedProId).value;          
     
     let converTotalPrice = parseInt(getTotalPrice);
-
-    console.log(converTotalPrice, 'converTotalPrice')
     
-    newTotal += converTotalPrice;
+    let getProduct = document.getElementById("cartPro_"+selectedProId);    
+    
+    if(getProduct.checked){
+        newTotal += converTotalPrice;        
+    }else if (!getProduct.checked) {
+        newTotal -= converTotalPrice;
+    }    
 
     document.getElementById("total_value").value = newTotal;
 
-
-    // for(let i=0; i<cart.length; i++){        
-    //     newTotal += converTotalPrice;
-    // }
-
     document.getElementById("totalPrice").innerHTML = newTotal;
     vat(newTotal)
-    console.log(newTotal, 'newTotal')
 }
 
 
