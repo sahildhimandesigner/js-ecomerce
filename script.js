@@ -6,13 +6,31 @@ const addProBtn = document.getElementById('add_product');
 let cartValue = 0;
 let userDetails = false;
 
+// document.getElementById("product_image").addEventListener('change', function(){
+    
+//     const reader = new FileReader();    
+
+//     reader.addEventListener('load', function(){
+//        localStorage.setItem('product_image', reader.result)
+//     })
+
+//     reader.readAsDataURL(this.files[0])
+   
+// })
+
+
 function setProductData(){
+
+    // let recentProductImage = localStorage.getItem('product_image');
+    
+
     ecartStore = []
     let product_name = document.getElementById('productName').value;
     let product_price = document.getElementById('productPrice').value;
     let description = document.getElementById('description').value;
     let product_image = document.getElementById('product_image').value;
     let product_category = document.getElementById('category').value;
+
 
     if(product_name == ""){
         document.querySelector(".name-error").innerHTML = "enter the value";

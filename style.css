@@ -71,3 +71,6 @@ li a.dis {
 .private-link {
   display: none;
 }
+.top-0 {
+  top: 0;
+}

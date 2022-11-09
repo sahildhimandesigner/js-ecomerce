@@ -17,7 +17,7 @@ function cartProductListItem(cartData){
     
     cartData.forEach((productItem) => {
         
-        let proudctQty = productItem.qty ? productItem.qty : '1';
+        let proudctQty = productItem.qty ? productItem.qty : 1;
         let productPrice = productItem.qty * productItem.proPrice;
         loadTableData += `
             <tr class="table-row">
@@ -67,8 +67,6 @@ function calCulatePrice(){
 function selectItem(selectedProId){
     calCulatePrice(selectedProId);
 }
-
-
 
 function getQuantity(proPrice, id){    
     let getProQty = document.getElementById("product-" + id).value;
