@@ -202,6 +202,7 @@ function prodcutDetailId(proDetailId){
 function backToProductList(){
     document.getElementById("showCategory").style.display = "none";
     document.getElementById("product").style.display = "flex";
+    document.getElementById("edit_product_form").style.display = "none";
 }
 
 function addToWhishlist(){
@@ -299,6 +300,7 @@ function deleteProductBtn(deletedProId){
 }
 
 function editProduct(id){
+    let productId = id;
     document.getElementById("edit_product_form").style.display = "block";    
     document.getElementById("product").style.display = "none";
     fetch('https://api-generator.retool.com/BsUw6I/data/'+id,{
@@ -306,6 +308,7 @@ function editProduct(id){
     }).then(function(response){
         return response.json();
     }).then(function(productData){        
+        console.log(productData)
         const productName = productData.product_name;
         const productDescription = productData.description;
         const productCat = productData.product_category;
@@ -317,6 +320,34 @@ function editProduct(id){
         document.getElementById("description").value = productDescription;
         document.getElementById("category").value = productCat;
         document.getElementById("product_image").value = productImg;
+    })
+
+    document.getElementById("updatedProduct").addEventListener('click', function(){
+        const updatedName = document.getElementById("productName").value;
+        const updatedPrice = document.getElementById("productPrice").value;
+        const updatedDesc = document.getElementById("description").value;
+        const updatedCategory = document.getElementById("category").value;
+        const updatedImg = document.getElementById("product_image").value;
+
+        fetch('https://api-generator.retool.com/BsUw6I/data/'+productId,{
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "id" : productId,
+                "product_name" : updatedName, 
+                "product_price" : updatedPrice, 
+                "description" : updatedDesc, 
+                "product_category" : updatedCategory, 
+                "product_image" : updatedImg,
+            })
+        }).then(function(response){
+            return response.json()
+        }).then(function(data){
+            console.log(data,'data')            
+            getDataForPag(data)
+        })
+        document.getElementById("edit_product_form").style.display = "none";
+        document.getElementById("product").style.display = "flex";
     })
 }
 
