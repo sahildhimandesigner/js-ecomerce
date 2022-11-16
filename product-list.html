@@ -43,9 +43,40 @@
     <div class="col-md-4 m-auto mt-4 mb-4">
         <input class="form-control" id="product_search" type="text" onkeyup="searchItem()" placeholder="Search Product" aria-label=".form-control-lg example">
     </div>        
+
+    
     <div class="container m-auto">
         <h5 id="successMessage" class="hide-smoth hideme"></h5>
-        <div class="col-md-12 flex-wrap" style="display: flex;" id="product">            
+
+        <div class="d-flex">
+            <div class="filter w-100">
+                <div class="col-md-3 mb-5">
+                    <label>Category</label>
+                    <select id="select_category" onchange="selectCategory()">
+                        <option value="Shoes">Shoes</option>
+                        <option value="Tshirt">Tshirt</option>
+                        <option value="Clothes">Clothes</option>
+                        <option value="Cap">Cap</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-5">
+                    <label>Price</label>
+                    <div>
+                        <input type="range" id="volume" name="volume" onchange="getPrice()" min="10" max="5000" />
+                        <label for="volume">Volume</label>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-5">
+                    <label>Brand</label>
+                    <select id="select_brand" onchange="selectBrand()">
+                        <option value="Nike">Nike</option>
+                        <option value="Numero Uno">Numero Uno</option>
+                        <option value="UCB">UCB</option>                
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 flex-wrap" style="display: flex;" id="product">            
+            </div>
         </div>
 
         <h5 id="nomatch" class="text-center"></h5>

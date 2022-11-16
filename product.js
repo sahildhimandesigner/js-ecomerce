@@ -209,18 +209,71 @@ function addToWhishlist(){
     alert('sdfsdf')
 }
 
+let selectedFilterValue = {"product_name":"", "product_price": '', "product_category": '',};
+
+function filterProduct(){
+
+    let apiUrl = "https://api-generator.retool.com/BsUw6I/data?";
+    
+    // +"&product_price="+selectedFilterValue.product_price+'&product_category='+selectedFilterValue.product_category
+    
+    if(selectedFilterValue.product_name !== ""){
+        apiUrl += "product_name="+selectedFilterValue.product_name + "&"
+    }
+    if(selectedFilterValue.product_price !== ""){
+        apiUrl += "product_price="+selectedFilterValue.product_price + "&"
+    }
+    if(selectedFilterValue.product_category !== ""){
+        apiUrl += "product_category="+selectedFilterValue.product_category
+    }
+
+
+    fetch(apiUrl, {
+        method: 'get',
+    }).then(function(response){        
+        return response.json();        
+    }).then(function(data){
+        productList(data)
+        console.log(data)
+    })
+    console.log(selectedFilterValue, 'selectedFilterValue')
+}
+
+
+
+function getPrice(){
+    let getPrice =  document.getElementById("volume").value;
+    let converPrice = parseInt(getPrice);
+    selectedFilterValue.product_price = converPrice;
+    filterProduct()
+}
+
+function selectCategory(){
+    const getCatgory = document.getElementById("select_category").value;    
+    selectedFilterValue.product_category = getCatgory;
+    filterProduct()    
+}
+
+function selectBrand(){
+    const brand = document.getElementById("select_brand").value;    
+    selectedFilterValue.product_name = brand;
+    filterProduct()
+}
+
 function searchItem(){
     let proSrc = document.getElementById("product_search").value;                
     let findProduct = proSrc.charAt(0).toUpperCase() + proSrc.slice(1);
+    console.log(findProduct, 'findProduct')
     // let carIteam = document.getElementsByClassName('card');    
     
     if(proSrc){
-        fetch('https://api-generator.retool.com/BsUw6I/data?product_name=' + findProduct, {
+        fetch('https://api-generator.retool.com/BsUw6I/data?product_name='+findProduct, {
         method: 'GET',
         }).then(function(response){
             return response.json();            
         }).then(function(searchData){   
-            productList(searchData);         
+            console.log(searchData, 'searchdata')
+            productList(searchData); 
             // if(searchData.length > 0){
             //     productList(searchData);
             //     console.log('working')
